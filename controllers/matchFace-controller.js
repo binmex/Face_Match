@@ -1,19 +1,7 @@
 const axios = require('axios');
 const canvas = require('canvas');
 const faceapi = require('face-api.js');
-const NodeCache = require('node-cache');
-
-// Caché para almacenar descriptores de imagen
-const descriptorCache = new NodeCache({ stdTTL: 3600 }); // Caché de 1 hora
-
 async function getImageDescriptor(imageUrl) {
-  // Verificar si el descriptor está en caché
-  const cachedDescriptor = descriptorCache.get(imageUrl);
-  if (cachedDescriptor) {
-    // Asegurarse de que el descriptor cacheado sea un Float32Array
-    return new Float32Array(cachedDescriptor);
-  }
-
   try {
     const response = await axios.get(imageUrl, {
       responseType: 'arraybuffer',
@@ -30,9 +18,6 @@ async function getImageDescriptor(imageUrl) {
     if (!detections) {
       throw new Error('No face detected in the image');
     }
-    
-    // Almacenar el descriptor en caché (como array normal)
-    descriptorCache.set(imageUrl, Array.from(detections.descriptor));
     
     return detections.descriptor;
   } catch (error) {
@@ -55,11 +40,7 @@ exports.matchFace = async (req, res) => {
       getImageDescriptor(imageUrl2),
     ]);
 
-    // Asegurarse de que los descriptores sean Float32Array
-    const desc1 = descriptor1 instanceof Float32Array ? descriptor1 : new Float32Array(descriptor1);
-    const desc2 = descriptor2 instanceof Float32Array ? descriptor2 : new Float32Array(descriptor2);
-
-    const distance = faceapi.euclideanDistance(desc1, desc2);
+    const distance = faceapi.euclideanDistance(descriptor1, descriptor2);
     const similarity = 1 - distance;
 
     res.json({
