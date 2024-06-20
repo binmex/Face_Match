@@ -2,6 +2,7 @@ const express = require('express');
 const faceapi = require('face-api.js');
 const canvas = require('canvas');
 const path = require('path');
+const cors = require("cors");
 
 const app = express();
 const port = 3000;
@@ -25,6 +26,8 @@ loadModels().then(() => {
   console.error('Error loading models:', err);
 });
 
+//middelware
+app.use(cors());
 app.use(express.json());
 
 app.use('/face', require('./routes/matchFace.js'));
