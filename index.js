@@ -5,7 +5,6 @@ const path = require('path');
 const cors = require("cors");
 
 const app = express();
-const port = 3000;
 
 // Monkey patch the faceapi canvas
 const { Canvas, Image, ImageData } = canvas;
@@ -26,12 +25,14 @@ loadModels().then(() => {
   console.error('Error loading models:', err);
 });
 
+app.set("PORT", process.env.PORT || 4000);
+
 //middelware
 app.use(cors());
 app.use(express.json());
 
 app.use('/face', require('./routes/matchFace.js'));
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+app.listen(app.get("PORT"), () => {
+  console.log(`Server running at http://localhost:${app.get("PORT")}`);
 });
