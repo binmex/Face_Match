@@ -12,10 +12,9 @@ faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
 
 // Load models
 async function loadModels() {
-  const modelPath = path.join(__dirname, 'models');
-  await faceapi.nets.ssdMobilenetv1.loadFromDisk(modelPath);
-  await faceapi.nets.faceLandmark68Net.loadFromDisk(modelPath);
-  await faceapi.nets.faceRecognitionNet.loadFromDisk(modelPath);
+  await faceapi.nets.ssdMobilenetv1.loadFromDisk('./models');
+  await faceapi.nets.faceLandmark68Net.loadFromDisk('./models');
+  await faceapi.nets.faceRecognitionNet.loadFromDisk('./models');
 }
 
 // Cargar los modelos al iniciar la aplicación

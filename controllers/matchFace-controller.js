@@ -1,11 +1,14 @@
 const axios = require('axios');
 const canvas = require('canvas');
 const faceapi = require('face-api.js');
+
 async function getImageDescriptor(imageUrl) {
   try {
     const response = await axios.get(imageUrl, {
       responseType: 'arraybuffer',
-      timeout: 5000 // 10 segundos de tiempo de espera
+      timeout: 8000,// 5 segundos de tiempo de espera
+      maxContentLength: Infinity, // Aumenta el tamaño máximo de contenido permitido
+      maxBodyLength: Infinity // Aumenta el tamaño máximo del cuerpo de la respuesta
     });
 
     const buffer = Buffer.from(response.data, 'binary');
