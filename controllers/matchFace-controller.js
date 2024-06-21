@@ -5,7 +5,7 @@ async function getImageDescriptor(imageUrl) {
   try {
     const response = await axios.get(imageUrl, {
       responseType: 'arraybuffer',
-      timeout: 10000 // 10 segundos de tiempo de espera
+      timeout: 5000 // 10 segundos de tiempo de espera
     });
 
     const buffer = Buffer.from(response.data, 'binary');
