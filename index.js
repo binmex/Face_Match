@@ -19,20 +19,22 @@ async function loadModels() {
 }
 
 // Cargar los modelos al iniciar la aplicación
+// Cargar los modelos al iniciar la aplicación
 loadModels().then(() => {
   console.log('Models loaded');
+
+  app.set("PORT", process.env.PORT || 4000);
+
+  //middelware
+  app.use(cors());
+  app.use(express.json());
+
+  app.use('/face', require('./routes/matchFace.js'));
+
+  app.listen(app.get("PORT"), () => {
+    console.log(`Server running at http://localhost:${app.get("PORT")}`);
+  });
+
 }).catch(err => {
   console.error('Error loading models:', err);
-});
-
-app.set("PORT", process.env.PORT || 4000);
-
-//middelware
-app.use(cors());
-app.use(express.json());
-
-app.use('/face', require('./routes/matchFace.js'));
-
-app.listen(app.get("PORT"), () => {
-  console.log(`Server running at http://localhost:${app.get("PORT")}`);
 });
