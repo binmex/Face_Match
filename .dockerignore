@@ -1,0 +1,27 @@
+# Ignorar la carpeta de módulos de Node.js
+node_modules
+
+# Ignorar archivos de log de npm
+npm-debug.log
+
+# Ignorar archivos de lock de yarn
+yarn.lock
+
+# Ignorar archivos de configuración de entornos locales
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar archivos de test y cobertura
+coverage
+*.test.js
+*.spec.js
+
+# Ignorar directorios del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar la carpeta de Git
+.git
