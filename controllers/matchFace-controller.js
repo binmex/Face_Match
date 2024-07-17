@@ -46,8 +46,6 @@ async function getImageDescriptor(imageUrl) {
 exports.matchFace = async (req, res) => {
   try {
     const { imageUrl1, imageUrl2 } = req.body;
-    console.log(decrypt(imageUrl1))
-    console.log(decrypt(imageUrl2))
 
     if (!imageUrl1 || !imageUrl2) {
       return res.status(400).json({ error: "Two image URLs are required" });
