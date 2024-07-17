@@ -46,6 +46,8 @@ async function getImageDescriptor(imageUrl) {
 exports.matchFace = async (req, res) => {
   try {
     const { imageUrl1, imageUrl2 } = req.body;
+    console.log(decrypt(imageUrl1))
+    console.log(decrypt(imageUrl2))
 
     if (!imageUrl1 || !imageUrl2) {
       return res.status(400).json({ error: "Two image URLs are required" });
@@ -66,7 +68,7 @@ exports.matchFace = async (req, res) => {
     res.json({
       distance,
       similarity,
-      isSamePerson: similarity > process.env.MATCH_VALUE || 0.6,
+      isSamePerson: similarity > 0.6,
     });
   } catch (error) {
     console.error("Error processing images:", error);

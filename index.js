@@ -3,6 +3,7 @@ const faceapi = require('face-api.js');
 const canvas = require('canvas');
 const path = require('path');
 const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
@@ -23,7 +24,7 @@ async function loadModels() {
 loadModels().then(() => {
   console.log('Models loaded');
 
-  app.set("PORT", process.env.PORT || 4000);
+  app.set("PORT", process.env.PORT || 5000);
 
   //middelware
   app.use(cors());
