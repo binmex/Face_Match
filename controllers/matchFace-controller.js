@@ -66,7 +66,7 @@ exports.matchFace = async (req, res) => {
     res.json({
       distance,
       similarity,
-      isSamePerson: similarity > 0.6,
+      isSamePerson: similarity > 0.5,
     });
   } catch (error) {
     console.error("Error processing images:", error);
